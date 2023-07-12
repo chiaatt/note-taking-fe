@@ -77,7 +77,7 @@ const NoteNew = () => {
         return;
       } else {
         setViewState(globalViewStates.REDIRECT_TO_PARENT);
-        updatingData ? Toast.success(`${updatingData?.name} updated`) : Toast.success('New note added');
+        updatingData ? Toast.success(`Updated successfully`) : Toast.success('New note added');
       }
     } catch (ex) {
       Toast.error(`There was a problem ${updatingData ? 'updating' : 'saving'} your data. Please try again later.`);

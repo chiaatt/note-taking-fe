@@ -37,6 +37,7 @@ const NoteList = () => {
         const newNodeList = noteList.filter((d) => d.id !== item.id);
 
         setNoteList(newNodeList);
+        getLabels();
         setViewState(globalViewStates.DONE);
         Toast.success(`${item.title} was deleted.`);
       },
@@ -118,14 +119,18 @@ const NoteList = () => {
     }
 
     // Get Labels
-    const labelResult =
+   await getLabels();
+  };
+
+  const getLabels = async() => {
+     const labelResult =
           await request("GET", `${apiUrl}/label`);
 
     if (labelResult && labelResult.data) {
       setLabelFilter(labelResult.data);
       setViewState(globalViewStates.DONE);
     }
-  };
+  }
 
   const onUpdateClick = (updatingData) => {
     navigate('/notes/new', { state: { updatingData } });
