@@ -7,6 +7,7 @@ This project was developed using ReactJS.
 This application is hosted on https://note-taking-fe-rjkm.onrender.com
 
 Please use the link above to view the application.
+*The server might be slow to load as it is free hosting*
 
 ## Running the application locally
 
