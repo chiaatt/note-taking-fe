@@ -17,6 +17,6 @@ Should you wish to run the application locally, you can clone this repository an
 The backend is hosted on https://note-taking-be.onrender.com, and thus no need to run the backend locally.
 
 ## Improvements
-- Allow users to add more than one label when creating or updating a note (backend already supported)
+- Allow users to add more than one label when creating or updating a note (backend already supported), as well as auto-complete from existing labels.
 - Display the notes in a card format rather than in a table
 - Allow to filter by more than one label
