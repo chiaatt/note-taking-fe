@@ -9,6 +9,7 @@ import Loading from 'components/loading/Loading';
 import Layout from 'components/layout/Layout';
 import NoteList from 'view/notes/NoteList';
 import NoteNew from 'view/notes/NoteNew';
+import Search from 'view/notes/Search';
 import Login from 'view/Login';
 
 import ProtectedRoute from 'util/ProtectedRoute';
@@ -25,6 +26,7 @@ function App() {
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/notes" element={ <ProtectedRoute> <NoteList /> </ProtectedRoute>} />
               <Route exact path="/notes/new" element={<ProtectedRoute><NoteNew /></ProtectedRoute>} />
+              <Route exact path="/notes/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
 
               <Route exact path="*" element={<NotFound />} />
             </Route>

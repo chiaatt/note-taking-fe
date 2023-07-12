@@ -27,7 +27,7 @@ const NoteNew = () => {
         ...formModel,
         title: updatingData.title,
         content: updatingData.content,
-        labels: JSON.parse(updatingData.labels)[0]
+        labels: updatingData.labels && JSON.parse(updatingData.labels)[0] //TODO: To improve
       });
   }, [updatingData]);
 
@@ -90,11 +90,11 @@ const NoteNew = () => {
     try {
       let result;
         if (itemID) {
-          formModel.labels = [formModel.labels];
+          formModel.labels = formModel.labels ? [formModel.labels] : undefined;
           formModel.noteId = itemID;
           result = await request('PUT', `${apiUrl}`, formModel); 
         } else {
-          formModel.labels = [formModel.labels];
+          formModel.labels = formModel.labels ? [formModel.labels] : undefined;
           result = await request('POST', apiUrl, formModel);
         }
 

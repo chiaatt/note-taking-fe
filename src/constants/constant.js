@@ -2,6 +2,7 @@ export const APP_ROOT = 'https://note-taking-be.onrender.com/api/v1';
 
 export const urls = {
   URL_NOTES: `${APP_ROOT}/note`,
+  URL_NOTES_SEARCH: `${APP_ROOT}/note/search`,
   URL_LOGIN: `${APP_ROOT}/auth/login`,
 };
 
@@ -26,4 +27,8 @@ export const loginInitialForm = {
   password: ''
 };
 
-export const noteTitleList = ['Title', 'Content', 'Labels', 'Actions'];
+export const searchInitialForm = {
+  text: ''
+};
+
+export const noteTitleList = ['Title', 'Content', 'Labels'];

@@ -100,6 +100,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <li>
                 <NavLink to={'notes/new'} className={'text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'}>New Note</NavLink>
               </li>
+              <li>
+                <NavLink to={'notes/search'} className={'text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'}>Search</NavLink>
+              </li>
             </ul>
           </nav>
         </div>

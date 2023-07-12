@@ -31,22 +31,24 @@ const Table = ({ list, titleList, onUpdateClick, onDeleteClick }) => {
               )
             );
           })}
-          <td className="text-right" width={'100'}>
-            <span className="flex text-xl ">
-              <button className="btn btn-basic !text-green-700 mr-3 md:mr-3" onClick={() => onUpdateClick(row)}>
-                <BiEditAlt className="" />
-              </button>
+          {onDeleteClick && onUpdateClick && 
+            <td className="text-right" width={'100'}>
+              <span className="flex text-xl ">
+                <button className="btn btn-basic !text-green-700 mr-3 md:mr-3" onClick={() => onUpdateClick(row)}>
+                  <BiEditAlt className="" />
+                </button>
 
-              <button
-                className="btn btn-basic !text-red-700"
-                onClick={() =>
-                  onDeleteClick(row)
-                }
-              >
-                <BiTrash />
-              </button>
-            </span>
-          </td>
+                <button
+                  className="btn btn-basic !text-red-700"
+                  onClick={() =>
+                    onDeleteClick(row)
+                  }
+                >
+                  <BiTrash />
+                </button>
+              </span>
+            </td>
+          }
         </tr>
       );
     });
