@@ -3,19 +3,18 @@ import * as Toast from 'components/toast/Toastify';
 
 import { globalViewStates } from 'constants/constant';
 import InputField from 'components/forms/InputField';
-import { newNoteInitialForm } from 'constants/constant';
+import { loginInitialForm } from 'constants/constant';
 import { Navigate, useLocation } from 'react-router-dom';
 import { urls } from 'constants/constant';
-import { request } from 'axios-helper';
+import { request, setAuthToken } from 'axios-helper';
 
-const NoteNew = () => {
+const Login = () => {
   const [viewState, setViewState] = useState(globalViewStates.IDLE);
-  const [apiUrl] = useState(urls.URL_NOTES);
-  const [formModel, setFormModel] = useState(newNoteInitialForm);
+  const [apiUrl] = useState(urls.URL_LOGIN);
+  const [formModel, setFormModel] = useState(loginInitialForm);
   const [formErrorModel, setFormErrorModel] = useState({
-    title: false,
-    content: false,
-    labels: false,
+    login: false,
+    password: false
   });
 
   const { state } = useLocation();
@@ -25,14 +24,13 @@ const NoteNew = () => {
     updatingData &&
       setFormModel({
         ...formModel,
-        title: updatingData.title,
-        content: updatingData.content,
-        labels: JSON.parse(updatingData.labels)[0]
+        login: updatingData.login,
+        password: updatingData.password
       });
   }, [updatingData]);
 
   //Change Input
-  const onChangeInput = (e) => {
+   const onChangeInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setFormModel({
@@ -43,16 +41,15 @@ const NoteNew = () => {
 
   // clear form
   const clearForm = () => {
-    setFormModel(newNoteInitialForm);
+    setFormModel(loginInitialForm);
   };
 
   const onFormSubmit = (updatingData, e) => {
     e.preventDefault();
 
     const obj = {
-      title: updatingData ? false : formModel.title?.trim() === '',
-      content: updatingData ? false : formModel.content?.trim() === '',
-      labels: updatingData ? false : formModel.labels?.trim() === '',
+      login: formModel.login.trim() === '',
+      password: formModel.password.trim() === '',
     };
 
     setFormErrorModel(obj);
@@ -61,7 +58,7 @@ const NoteNew = () => {
       Toast.error('Please fill the required areas!');
       return;
     } else {
-      updatingData ? onFormSave(updatingData) : onFormSave();
+      onFormSave();
     }
   };
 
@@ -69,36 +66,30 @@ const NoteNew = () => {
     try {
       setViewState(globalViewStates.POSTING);
 
-      const { success: successAdd } = await sendAddOrUpdateRequest(apiUrl, formModel, updatingData?.id);
+      const { success: successAdd } = await login(apiUrl, formModel);
 
       if (!successAdd) {
-        Toast.error(`There was a problem ${updatingData ? 'updating' : 'saving'} your data. Please try again later.`);
+        Toast.error(`There was a problem with login. Please try again later.`);
         setViewState(globalViewStates.IDLE);
         return;
       } else {
         setViewState(globalViewStates.REDIRECT_TO_PARENT);
-        updatingData ? Toast.success(`${updatingData?.name} updated`) : Toast.success('New note added');
+         Toast.success('Login Successful');
       }
     } catch (ex) {
-      Toast.error(`There was a problem ${updatingData ? 'updating' : 'saving'} your data. Please try again later.`);
+      Toast.error(`There was a problem with login. Please try again later.`);
       setViewState(globalViewStates.IDLE);
     }
   };
 
-  const sendAddOrUpdateRequest = async (apiUrl, formModel, itemID) => {
-    // debugger
+  const login = async (apiUrl, formModel) => {
     try {
-      let result;
-        if (itemID) {
-          formModel.labels = [formModel.labels];
-          formModel.noteId = itemID;
-          result = await request('PUT', `${apiUrl}`, formModel); 
-        } else {
-          formModel.labels = [formModel.labels];
-          result = await request('POST', apiUrl, formModel);
-        }
+      const result =
+           await request("POST", apiUrl, formModel);
 
       if (result && result.data) {
+        setAuthToken(result.data.token);
+
         return { success: true };
       }
 
@@ -118,44 +109,33 @@ const NoteNew = () => {
       <div className="my-2 py-2 max-w-2xl mx-auto">
         <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 shadow sm:rounded-lg ">
           <h2 className="font-bold text-base mt-3 mb-10 text-center">
-            {updatingData ? 'UPDATE NOTE' : 'ADD NEW NOTE'}
+            Login to Note Taking App
           </h2>
 
           <form>
             <div className="flex flex-col gap-6">
               <InputField 
-                name="title"
-                id="title"
-                label={'Note Title'}
+                name="login"
+                id="login"
+                label={'Username'}
                 placeholder=""
-                maxLength="32"
+                maxLength="250"
                 required
-                value={formModel.title}
+                value={formModel.login}
                 onChange={(e) => {
                   onChangeInput(e);
                 }}
               />
 
               <InputField 
-                name="content"
-                id="content"
-                label={'Note Content'}
+                name="password"
+                id="password"
+                label={'Password'}
+                type="password"
                 placeholder=""
-                maxLength="300"
+                maxLength="250"
                 required
-                value={formModel.content}
-                onChange={(e) => {
-                  onChangeInput(e);
-                }}
-              />
-
-              <InputField 
-                name="labels"
-                id="labels"
-                label={'Labels'}
-                placeholder=""
-                maxLength="32"
-                value={formModel.labels}
+                value={formModel.password}
                 onChange={(e) => {
                   onChangeInput(e);
                 }}
@@ -167,7 +147,7 @@ const NoteNew = () => {
                 </button>
 
                 <button type="button" className="btn btn-primary ml-5" onClick={(e) => onFormSubmit(updatingData, e)}>
-                  {updatingData ? 'Update' : 'Save'}
+                 Login
                 </button>
               </div>
             </div>
@@ -178,4 +158,4 @@ const NoteNew = () => {
   );
 };
 
-export default NoteNew;
+export default Login;

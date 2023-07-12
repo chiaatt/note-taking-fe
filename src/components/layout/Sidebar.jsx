@@ -59,7 +59,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                       alt=""
                     />
-                    <span className="ml-3"> Java Task Frontend </span>
+                    <span className="ml-3"> Note Taking Application </span>
                   </div>
                   <nav className="flex flex-1 flex-col">
                     <ul className="flex flex-1 flex-col gap-y-7">
@@ -90,7 +90,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt=""
             />
-            <span className="ml-3"> Java Task Frontend </span>
+            <span className="ml-3"> Note Taking Application </span>
           </div>
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-7">

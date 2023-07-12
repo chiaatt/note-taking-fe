@@ -8,7 +8,7 @@ import Table from 'components/table/Table';
 import { useNavigate } from 'react-router-dom';
 
 import { urls, noteTitleList } from 'constants/constant';
-import axios from 'axios';
+import { request } from 'axios-helper';
 
 const NoteList = () => {
   const [viewState, setViewState] = useState(globalViewStates.LOADING);
@@ -25,8 +25,7 @@ const NoteList = () => {
   }, []);
 
   const onDeleteClick = (item) => {
-    alert("check onDeleteClick function in NoteList page")
-    console.log(item)
+    alert("Are you sure you want to delete this note?")
     if (!item.id) {
       return;
     }
@@ -38,7 +37,7 @@ const NoteList = () => {
 
         setNoteList(newNodeList);
         setViewState(globalViewStates.DONE);
-        Toast.success(`${item.name} was deleted.`);
+        Toast.success(`${item.title} was deleted.`);
       },
       (err) => {
         console.log(err);
@@ -51,11 +50,7 @@ const NoteList = () => {
   // Delete Item
   const sendDeleteRequest = async (apiUrl, id) => {
     try { 
-      const result = await axios.delete(`${apiUrl}/${id}`, {
-        withCredentials: false,
-        data: {},
-        headers: { 'content-type': 'application/json; charset=utf-8' }
-      });
+      const result = await request('DELETE', `${apiUrl}/${id}`);
 
       void result;
 
@@ -67,13 +62,28 @@ const NoteList = () => {
   };
 
   // Get Data
-  const getData = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => response.json())
-      .then((data) => {
-        setNoteList(data);
-        setViewState(globalViewStates.DONE);
-      });
+  const getData = async() => {
+      const result =
+          await request("GET", apiUrl);
+
+    if (result && result.data) {
+
+      const r = result.data.map((r) => {
+        const labels = r.labels?.map((l) => {
+          return l.name;
+        });
+
+        return {
+          id: String(r.noteId),
+          title: r.title,
+          content: r.content,
+          labels: JSON.stringify(labels)
+        }
+      })
+
+      setNoteList(r);
+      setViewState(globalViewStates.DONE);
+    }
   };
 
   const onUpdateClick = (updatingData) => {

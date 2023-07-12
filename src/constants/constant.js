@@ -1,7 +1,8 @@
-export const APP_ROOT = 'api-url';
+export const APP_ROOT = 'https://note-taking-be.onrender.com/api/v1';
 
 export const urls = {
-  URL_NOTES: `${APP_ROOT}/notes`
+  URL_NOTES: `${APP_ROOT}/note`,
+  URL_LOGIN: `${APP_ROOT}/auth/login`,
 };
 
 export const globalViewStates = {
@@ -15,8 +16,14 @@ export const globalViewStates = {
 };
 
 export const newNoteInitialForm = {
-  name: '',
-  type: ''
+  title: '',
+  content: '',
+  labels: '',
 };
 
-export const noteTitleList = ['Title1', 'Title2', 'Title3', 'Actions'];
+export const loginInitialForm = {
+  login: '',
+  password: ''
+};
+
+export const noteTitleList = ['Title', 'Content', 'Labels', 'Actions'];

@@ -9,6 +9,7 @@ import Loading from 'components/loading/Loading';
 import Layout from 'components/layout/Layout';
 import NoteList from 'view/notes/NoteList';
 import NoteNew from 'view/notes/NoteNew';
+import Login from 'view/Login';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route exact path="/" element={<Layout />}>
+              <Route exact path="/login" element={<Login />} />
               <Route exact path="/notes" element={<NoteList />} />
               <Route exact path="/notes/new" element={<NoteNew />} />
 
