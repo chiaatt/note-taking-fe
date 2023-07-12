@@ -11,7 +11,10 @@ import NoteList from 'view/notes/NoteList';
 import NoteNew from 'view/notes/NoteNew';
 import Login from 'view/Login';
 
+import ProtectedRoute from 'util/ProtectedRoute';
+
 function App() {
+
   return (
     <div className="App">
       <ToastContainer autoClose={false} transition={Zoom} style={{ marginTop: '50px' }} />
@@ -20,8 +23,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Layout />}>
               <Route exact path="/login" element={<Login />} />
-              <Route exact path="/notes" element={<NoteList />} />
-              <Route exact path="/notes/new" element={<NoteNew />} />
+              <Route exact path="/notes" element={ <ProtectedRoute> <NoteList /> </ProtectedRoute>} />
+              <Route exact path="/notes/new" element={<ProtectedRoute><NoteNew /></ProtectedRoute>} />
 
               <Route exact path="*" element={<NotFound />} />
             </Route>

@@ -4,7 +4,7 @@ import * as Toast from 'components/toast/Toastify';
 import { globalViewStates } from 'constants/constant';
 import InputField from 'components/forms/InputField';
 import { loginInitialForm } from 'constants/constant';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { urls } from 'constants/constant';
 import { request, setAuthToken } from 'axios-helper';
 
@@ -19,6 +19,8 @@ const Login = () => {
 
   const { state } = useLocation();
   const { updatingData } = state ? state : '';
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     updatingData &&
@@ -101,7 +103,8 @@ const Login = () => {
   };
 
   if (viewState === globalViewStates.REDIRECT_TO_PARENT) {
-    return <Navigate to="/notes" />;
+    window.location.href = "/notes";
+    // return <Navigate to="/notes" />;
   }
 
   return (
