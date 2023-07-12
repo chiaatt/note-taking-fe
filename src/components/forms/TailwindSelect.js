@@ -20,11 +20,6 @@ export default function TailwindSelect({
     options ? options[0] : ''
   );
 
-  // console.log(options)
-  // console.log(options[0])
-
-  // debugger
-
   useEffect(() => {
     setSelected(defaultValue)
   }, [defaultValue])

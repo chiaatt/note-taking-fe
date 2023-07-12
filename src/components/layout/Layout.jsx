@@ -7,10 +7,10 @@ export default function Dashboard() {
 
   return (
     <div>
-      <Sidebar
+      {/* <Sidebar
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
-      />
+      /> */}
       <MainContent setSidebarOpen={setSidebarOpen} />
     </div>
   );

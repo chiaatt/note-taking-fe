@@ -4,7 +4,7 @@ import TapBar from './TapBar';
 
 const MainContent = ({ setSidebarOpen }) => {
   return (
-    <div className="lg:pl-72">
+    <div className="">
       <TapBar setSidebarOpen={setSidebarOpen} />
 
       <main className="py-10">

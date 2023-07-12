@@ -1,9 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -94,7 +95,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </div>
           <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col gap-y-7">
-              <li>
+              {/* <li>
                 <NavLink to={'notes'} className={'text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'}>Notes</NavLink>
               </li>
               <li>
@@ -102,7 +103,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               </li>
               <li>
                 <NavLink to={'notes/search'} className={'text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'}>Search</NavLink>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </div>
